@@ -214,7 +214,7 @@
 
                             <tr>
                               <td>#<?php echo $sReservaMes->id_reserva;?></td>
-                              <td><?php echo $sReservaMes->data;?></td>
+                              <td><?php echo implode('/', array_reverse(explode('-',$sReservaMes->data)));?></td>
                               <td><?php echo $sReservaMes->hora;?></td>
                               <td><a href="mailto:<?php echo $sReservaMes->email;?>"> <?php echo $sReservaMes->usuario;?></a></td>
                               <td><?php echo $sReservaMes->assunto;?></td>
