@@ -9,6 +9,12 @@
 
     <div class="row">
 
+        <?php if (!empty($sRetorno)): ?>
+        <div class="alert alert-warning alert-dismissible">
+            <strong><?php echo $sRetorno; ?></strong>
+        </div>
+        <?php endif; ?>
+
         <div class="col-md-6">
 
           <div class="box box-primary">
@@ -16,15 +22,20 @@
               <h3 class="box-title">Nova Sala</h3>
             </div>
 
-            <form role="form">
+            <?php echo validation_errors("<div class=\"alert alert-danger alert-dismissible\">","</div>"); ?>
+            <?php echo form_open('sala/acao'); ?>
+
+            <input name="iacao" value="<?php echo(!empty($aSalas->id) ? 2 : 1) ; ?>" type="text" hidden="hidden">
+            <input name="idado" value="<?php echo(!empty($aSalas->id) ? $aSalas->id : 0) ; ?>" type="text" hidden="hidden">
+
               <div class="box-body">
                 <div class="form-group">
                   <label>Nome da Sala</label>
-                  <input class="form-control" type="text">
+                  <input name="sala" class="form-control" value="<?php echo(!empty($aSalas->sala) ? $aSalas->sala : '') ; ?>" type="text">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Breve Descrição</label>
-                  <input class="form-control" type="text">
+                  <input name="detalhes" class="form-control" value="<?php echo(!empty($aSalas->detalhes) ? $aSalas->detalhes : '') ; ?>" type="text">
                 </div>
               </div>
               <div class="box-footer">
@@ -44,25 +55,23 @@
             <div class="box-body">
               <table class="table table-bordered">
                 <tbody><tr>
-                  <th style="width: 20px">#</th>
                   <th>Sala</th>
                   <th>Detalhes</th>
                   <th style="width: 75px"></th>
                 </tr>
+
+                <?php foreach ($rsSalas as $sSala): ?>
+
                 <tr>
-                  <td>1.</td>
-                  <td>Update software</td>
+                  <td><?php echo $sSala->sala;?></td>
+                  <td><?php echo $sSala->detalhes;?></td>
                   <td>
-
-
-                  </td>
-                  <td>
-                    <a href="#">
+                    <a href="<?php echo site_url('sala/deletar/'.$sSala->id); ?>">
                         <span class="badge bg-red">
                             <i class="fa fa-edit"></i>
                         </span>
                     </a>
-                    <a href="#">
+                    <a href="<?php echo site_url('sala/acao/'.$sSala->id); ?>">
                       <span class="badge bg-light-blue">
                           <i class="fa fa-edit"></i>
                       </span>
@@ -70,6 +79,7 @@
                   </td>
                 </tr>
 
+                <?php endforeach;?>
 
               </tbody>
              </table>
