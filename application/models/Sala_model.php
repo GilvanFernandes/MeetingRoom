@@ -140,7 +140,11 @@ class Sala_model extends CI_Model {
     public function getReserva($iSQLDef){
 
 
-        $sSQLReserva  = "      SELECT salas.id as id_sala,                                                    ";
+        $sSQLReserva  = "      SELECT salas_reservas.id as id_reserva,                                        ";
+        $sSQLReserva .= "             salas.id as id_sala,                                                    ";
+        $sSQLReserva .= "             usuarios.id as id_usuario,                                              ";
+        $sSQLReserva .= "             salas.sala,                                                             ";
+        $sSQLReserva .= "             salas_reservas.descricao,                                               ";
         $sSQLReserva .= "             usuarios.nome,                                                          ";
         $sSQLReserva .= "             salas_reservas.descricao as assunto,                                    ";
         $sSQLReserva .= "             salas_reservas.data,                                                    ";
@@ -153,18 +157,27 @@ class Sala_model extends CI_Model {
         switch ($iSQLDef) {
             // Busca da agenda do mes
             case 1:
-                $sSQLReserva .= " salas_reservas.data  = current_date() ";
+                $sSQLReserva .= " MONTH(salas_reservas.data)    = MONTH(current_date()) ";
+                $sSQLReserva .= " AND YEAR(salas_reservas.data) = YEAR(current_date())  ";
+
                 break;
             // Busca da agenda de amanha
             case 2:
-                # code...
+                $sSQLReserva .= " DAY(salas_reservas.data)       = DAY(current_date()) +1 ";
+                $sSQLReserva .= " AND MONTH(salas_reservas.data) = MONTH(current_date())  ";
+                $sSQLReserva .= " AND YEAR(salas_reservas.data)  = YEAR(current_date())   ";
+
                 break;
             // Busca da agenda do dia
             case 3:
-                # code...
+                $sSQLReserva .= " DAY(salas_reservas.data)       = DAY(current_date())    ";
+                $sSQLReserva .= " AND MONTH(salas_reservas.data) = MONTH(current_date())  ";
+                $sSQLReserva .= " AND YEAR(salas_reservas.data)  = YEAR(current_date())   ";
                 break;
         }
-        $sSQLReserva .= "         AND salas_reservas.status = 1;                                              ";
+        $sSQLReserva .= "         AND salas_reservas.status = 1                                     ";
+        $sSQLReserva .= "         AND salas.status = 1                                              ";
+        $sSQLReserva .= "    ORDER BY  salas_reservas.data,salas_reservas.hora;                     ";
 
         $rsSQLReserva = $this->db->query($sSQLReserva);
         return $rsSQLReserva->result();
