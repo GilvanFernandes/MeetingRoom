@@ -13,6 +13,8 @@
       </h1>
     </section>
 
+    <?php if($this->session->userdata('logado')): ?>
+
     <section class="content">
 
       <div class="box box-default">
@@ -87,5 +89,6 @@
       </div>
 
     </section>
+    <?php endif; ?>
 
   </div>
