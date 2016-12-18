@@ -1,9 +1,5 @@
 <footer class="main-footer">
-  <div class="pull-right hidden-xs">
-    <b>Version</b> 2.3.7
-  </div>
-  <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-  reserved.
+  <strong>Copyright &copy; <?php echo date('Y');?> / Developer by <a target="_black" href="https://br.linkedin.com/in/gilvanfernandes"> Gilvan Fernandes </a> / Layout by  <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> Open Source.
 </footer>
 
 <!-- jQuery 2.2.3 -->
