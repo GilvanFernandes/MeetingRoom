@@ -25,9 +25,7 @@ class Login extends CI_Controller {
 
             $aData = $this->login_model->getValidacao();
 
-            $cont = $aData;
-
-            if(count($cont) == 1){
+            if(count($aData) == 1){
 
                 foreach ($aData as $aPessoa) {
                      $aDadosSessao = array('id'     => $aPessoa->id,
