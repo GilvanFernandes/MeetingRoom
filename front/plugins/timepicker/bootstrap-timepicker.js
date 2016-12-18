@@ -46,13 +46,13 @@
 		if (this.$element.parent('.input-append, .input-prepend').find('.add-on').length) {
 			this.$element.parent('.input-append, .input-prepend').find('.add-on').on({
 			  'click.timepicker': $.proxy(this.showWidget, this)
-			});		
+			});
 		} else {
 			this.$element.closest(this.containerClass).find('.add-on').on({
 			  'click.timepicker': $.proxy(this.showWidget, this)
-			});		
+			});
 		}
-		
+
         this.$element.on({
           'focus.timepicker': $.proxy(this.highlightUnit, this),
           'click.timepicker': $.proxy(this.highlightUnit, this),
@@ -885,9 +885,9 @@
     defaultTime: 'current',
     disableFocus: false,
     isOpen: false,
-    minuteStep: 15,
+    minuteStep: 60,
     modalBackdrop: false,
-    secondStep: 15,
+    secondStep: 60,
     showSeconds: false,
     showInputs: true,
     showMeridian: true,
