@@ -59,7 +59,7 @@
             <i class="fa fa-th"></i> <span>Painel</span>
           </a>
         </li>
-        <?php if($this->session->userdata('logado') && ($this->session->userdata('adm')): ?>
+        <?php if($this->session->userdata('logado') && $this->session->userdata('adm')): ?>
                 <li>
                   <a href="<?php echo site_url('sala'); ?>">
                     <i class="fa fa-th"></i> <span>Sala</span>
