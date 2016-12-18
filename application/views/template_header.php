@@ -59,16 +59,19 @@
             <i class="fa fa-th"></i> <span>Painel</span>
           </a>
         </li>
-        <li>
-          <a href="<?php echo site_url('sala'); ?>">
-            <i class="fa fa-th"></i> <span>Sala</span>
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo site_url('usuario'); ?>">
-            <i class="fa fa-th"></i> <span>Usuário</span>
-          </a>
-        </li>
+        <?php if($this->session->userdata('logado') && ($this->session->userdata('adm')): ?>
+                <li>
+                  <a href="<?php echo site_url('sala'); ?>">
+                    <i class="fa fa-th"></i> <span>Sala</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="<?php echo site_url('usuario'); ?>">
+                    <i class="fa fa-th"></i> <span>Usuário</span>
+                  </a>
+                </li>
+        <?php endif; ?>
+
         <?php if($this->session->userdata('logado')): ?>
                 <li>
                   <a href="<?php echo site_url('login/deslogar'); ?>">
