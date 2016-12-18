@@ -137,5 +137,38 @@ class Sala_model extends CI_Model {
 
     }
 
+    public function getReserva($iSQLDef){
+
+
+        $sSQLReserva  = "      SELECT salas.id as id_sala,                                                    ";
+        $sSQLReserva .= "             usuarios.nome,                                                          ";
+        $sSQLReserva .= "             salas_reservas.descricao as assunto,                                    ";
+        $sSQLReserva .= "             salas_reservas.data,                                                    ";
+        $sSQLReserva .= "             salas_reservas.hora                                                     ";
+        $sSQLReserva .= "        FROM salas                                                                   ";
+        $sSQLReserva .= "  INNER JOIN salas_reservas ON salas_reservas.salas_id = salas.id                    ";
+        $sSQLReserva .= "  INNER JOIN usuarios       ON usuarios.id             = salas_reservas.usuarios_id  ";
+        $sSQLReserva .= "       WHERE                                                                         ";
+
+        switch ($iSQLDef) {
+            // Busca da agenda do mes
+            case 1:
+                $sSQLReserva .= " salas_reservas.data  = current_date() ";
+                break;
+            // Busca da agenda de amanha
+            case 2:
+                # code...
+                break;
+            // Busca da agenda do dia
+            case 3:
+                # code...
+                break;
+        }
+        $sSQLReserva .= "         AND salas_reservas.status = 1;                                              ";
+
+        $rsSQLReserva = $this->db->query($sSQLReserva);
+        return $rsSQLReserva->result();
+
+    }
 
 }
