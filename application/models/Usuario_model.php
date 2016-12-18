@@ -80,7 +80,7 @@ class Usuario_model extends CI_Model {
     public function setUsuarioAtualizar(){
 
         $aData = array('email'          => $this->input->post('email'),
-                       'senha'          => $this->input->post('senha'),
+                       'senha'          => sha1($this->input->post('senha')),
                        'adm'            => $this->input->post('adm'),
                        'data_alteracao' => 'now()');
 
