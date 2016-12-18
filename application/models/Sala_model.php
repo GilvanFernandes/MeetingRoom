@@ -73,7 +73,6 @@ class Sala_model extends CI_Model {
 
     public function setReserva(){
 
-
         if(strpos($this->input->post('hora'), 'A')){
             $sHora = substr($this->input->post('hora'),0,5).":00";
         }else{
@@ -117,6 +116,32 @@ class Sala_model extends CI_Model {
              $sHora = $sNum.":00:00";
 
         }
+
+        // Verificar se já não foi reservada alguma sala
+        $sSQLVerfReserva  = "       SELECT count(*) as num_reserva                                                                              ";
+        $sSQLVerfReserva .= "         FROM salas_reservas                                                                                       ";
+        $sSQLVerfReserva .= "   INNER JOIN salas ON salas.id = salas_id                                                                         ";
+        $sSQLVerfReserva .= "        WHERE salas_reservas.data = '".implode('-', array_reverse(explode('/',$this->input->post('data'))))."'     ";
+        $sSQLVerfReserva .= "          AND salas_reservas.hora = '".$sHora."';                                                                  ";
+
+        $rsVerfReserva = $this->db->query($sSQLVerfReserva);
+
+        if($rsVerfReserva->row()->num_reserva != 0){
+            return false;
+        }
+
+        $sSQLVerfReservaUsuario  = "       SELECT count(*) as num_reservauser                                                                          ";
+        $sSQLVerfReservaUsuario .= "         FROM salas_reservas                                                                                       ";
+        $sSQLVerfReservaUsuario .= "        WHERE salas_reservas.data = '".implode('-', array_reverse(explode('/',$this->input->post('data'))))."'     ";
+        $sSQLVerfReservaUsuario .= "          AND salas_reservas.hora = '".$sHora."'                                                                   ";
+        $sSQLVerfReservaUsuario .= "          AND salas_reservas.usuarios_id = ".$this->session->userdata('id').";                                     ";
+
+        $rsSQLVerfReservaUsuario = $this->db->query($sSQLVerfReservaUsuario);
+
+        if($rsSQLVerfReservaUsuario->row()->num_reservauser != 0){
+            return false;
+        }
+
 
         $aData = array('descricao'   => $this->input->post('assunto'),
                        'data'        => implode('-', array_reverse(explode('/',$this->input->post('data')))),
