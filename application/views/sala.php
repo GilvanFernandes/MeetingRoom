@@ -1,7 +1,7 @@
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
-      Controle de Sala
+      Controle de Salas
     </h1>
   </section>
 
