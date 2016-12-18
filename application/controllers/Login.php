@@ -37,7 +37,7 @@ class Login extends CI_Controller {
 
                 $this->session->set_userdata($aDadosSessao);
 
-                redirect('painel');
+                redirect('reserva');
 
             }else{
                 redirect('login');
