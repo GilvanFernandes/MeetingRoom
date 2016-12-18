@@ -9,15 +9,10 @@ class Reserva extends CI_Controller {
         $this->load->model('sala_model');
     }
 
-    public function index($bRetorno = NULL){
+    public function index($bRetorno = TRUE){
 
-        switch ($bRetorno) {
-            case TRUE:
-                $sRetorno = 'Ação executado com sucesso!';
-                break;
-            case FALSE:
-                $sRetorno = 'Não foi possível executar está ação';
-                break;
+        if(!$bRetorno){
+            $aData['sRetorno'] = 'Não foi possível executar está ação. Verificar se já não tem uma reserva no mesmo horário ou a sala solicitada está ocupada.';
         }
 
         $aData['rsSalas']          = $this->sala_model->getSala();
