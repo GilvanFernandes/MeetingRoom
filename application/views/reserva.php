@@ -100,7 +100,7 @@
 
             <?php foreach ($rsSalas as $sSala): ?>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
 
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
@@ -116,6 +116,7 @@
                         <tbody><tr>
                           <th>ID</th>
                           <th>Horário</th>
+                          <th>Reservado por</th>
                           <th>Motivo da Alocação</th>
                           <th style="width: 75px"></th>
                         </tr>
@@ -127,6 +128,7 @@
                             <tr>
                               <td>#<?php echo $sReservaHoje->id_reserva;?></td>
                               <td><?php echo $sReservaHoje->hora;?></td>
+                              <td><a href="mailto:<?php echo $sReservaHoje->email;?>"> <?php echo $sReservaHoje->usuario;?></a></td>
                               <td><?php echo $sReservaHoje->assunto;?></td>
                               <td>
 
@@ -157,6 +159,7 @@
                         <tbody><tr>
                           <th>ID</th>
                           <th>Horário</th>
+                          <th>Reservado por</th>
                           <th>Motivo da Alocação</th>
                           <th style="width: 75px"></th>
                         </tr>
@@ -168,6 +171,7 @@
                             <tr>
                               <td>#<?php echo $sReservaAmanha->id_reserva;?></td>
                               <td><?php echo $sReservaAmanha->hora;?></td>
+                              <td><a href="mailto:<?php echo $sReservaAmanha->email;?>"> <?php echo $sReservaAmanha->usuario;?></a></td>
                               <td><?php echo $sReservaAmanha->assunto;?></td>
                               <td>
                                   <?php if($this->session->userdata('logado') && $this->session->userdata('id') == $sReservaAmanha->id_usuario): ?>
@@ -197,6 +201,7 @@
                           <th>ID</th>
                           <th>Data</th>
                           <th>Horário</th>
+                          <th>Reservado por</th>
                           <th>Motivo da Alocação</th>
                           <th style="width: 75px"></th>
                         </tr>
@@ -209,6 +214,7 @@
                               <td>#<?php echo $sReservaMes->id_reserva;?></td>
                               <td><?php echo $sReservaMes->data;?></td>
                               <td><?php echo $sReservaMes->hora;?></td>
+                              <td><a href="mailto:<?php echo $sReservaMes->email;?>"> <?php echo $sReservaMes->usuario;?></a></td>
                               <td><?php echo $sReservaMes->assunto;?></td>
                               <td>
                                   <?php if($this->session->userdata('logado') && $this->session->userdata('id') == $sReservaMes->id_usuario): ?>
@@ -220,7 +226,7 @@
                                   </a>
 
                                   <?php endif; ?>
-                                  
+
                               </td>
                             </tr>
 

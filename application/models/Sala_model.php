@@ -142,6 +142,8 @@ class Sala_model extends CI_Model {
         $sSQLReserva  = "      SELECT salas_reservas.id as id_reserva,                                        ";
         $sSQLReserva .= "             salas.id as id_sala,                                                    ";
         $sSQLReserva .= "             usuarios.id as id_usuario,                                              ";
+        $sSQLReserva .= "             usuarios.nome as usuario,                                               ";
+        $sSQLReserva .= "             usuarios.email as email,                                                ";
         $sSQLReserva .= "             salas.sala,                                                             ";
         $sSQLReserva .= "             salas_reservas.descricao,                                               ";
         $sSQLReserva .= "             usuarios.nome,                                                          ";
