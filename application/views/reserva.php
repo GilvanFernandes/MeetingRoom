@@ -97,7 +97,9 @@
       <?php endif; ?>
 
         <div class="row">
-
+            <div class="col-md-12">
+                <h4>Lista dos horários ocupados, demais horários estão vagos</h4> <br />
+            </div>
             <?php foreach ($rsSalas as $sSala): ?>
 
             <div class="col-md-6">
