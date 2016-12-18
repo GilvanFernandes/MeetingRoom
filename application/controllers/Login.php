@@ -33,6 +33,7 @@ class Login extends CI_Controller {
                      $aDadosSessao = array('id'     => $aPessoa->id,
                                            'nome'   => $aPessoa->nome,
                                            'email'  => $aPessoa->email,
+                                           'adm'    => $aPessoa->adm,
                                            'logado' => TRUE);
                 }
 

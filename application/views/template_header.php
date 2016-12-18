@@ -69,16 +69,19 @@
             <i class="fa fa-th"></i> <span>Usuário</span>
           </a>
         </li>
-        <li>
-          <a href="<?php echo site_url('login/deslogar'); ?>">
-            <i class="fa fa-th"></i> <span>Desconectar</span>
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo site_url('login'); ?>">
-            <i class="fa fa-th"></i> <span>Login</span>
-          </a>
-        </li>
+        <?php if($this->session->userdata('logado')): ?>
+                <li>
+                  <a href="<?php echo site_url('login/deslogar'); ?>">
+                    <i class="fa fa-th"></i> <span>Desconectar</span>
+                  </a>
+                </li>
+        <?php else: ?>
+                <li>
+                  <a href="<?php echo site_url('login'); ?>">
+                    <i class="fa fa-th"></i> <span>Efetuar Login</span>
+                  </a>
+                </li>
+        <?php endif; ?>
       </ul>
     </section>
 
