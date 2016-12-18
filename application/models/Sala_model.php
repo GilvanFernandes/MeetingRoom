@@ -127,12 +127,11 @@ class Sala_model extends CI_Model {
 
     }
 
-    public function setDeletarReserva(){
+    public function setDeletarReserva($iIdReserva){
 
-        $aData = array('estado'                      => 2,
-                       'data_atualizacao'            => now());
+        $aData = array('status' => 2);
 
-        $this->db->where('id', $this->input->post('salas'));
+        $this->db->where('id', $iIdReserva);
         return $this->db->update('salas_reservas', $aData);
 
     }
