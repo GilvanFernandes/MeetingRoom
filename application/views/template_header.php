@@ -55,8 +55,8 @@
       <ul class="sidebar-menu">
         <li class="header">MENUS DE NAVEGAÇÃO</li>
         <li>
-          <a href="<?php echo site_url('painel'); ?>">
-            <i class="fa fa-th"></i> <span>Painel</span>
+          <a href="<?php echo site_url('reserva'); ?>">
+            <i class="fa fa-th"></i> <span>Reserva</span>
           </a>
         </li>
         <?php if($this->session->userdata('logado') && $this->session->userdata('adm')): ?>
