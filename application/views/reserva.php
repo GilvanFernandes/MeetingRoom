@@ -100,42 +100,50 @@
 
             <?php foreach ($rsSalas as $sSala): ?>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
 
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
-                  <li class="active"><a href="#tab_1-1_<?php echo $sSala->id.$sSala->sala;?>" data-toggle="tab" aria-expanded="true">Do dia(<?php echo date('d/m/Y');?>)</a></li>
-                  <li class=""><a href="#tab_2-2_<?php echo $sSala->id.$sSala->sala;?>" data-toggle="tab" aria-expanded="false">P/ Amanhã</a></li>
-                  <li class=""><a href="#tab_3-2_<?php echo $sSala->id.$sSala->sala;?>" data-toggle="tab" aria-expanded="false">Mês <?php echo date('m');?></a></li>
-                  <li class="pull-left header"><?php echo $sSala->sala;?></li>
+                  <li class="active"><a href="#tab_1_1_<?php echo strtolower($sSala->id."_".str_replace(' ', '_', $sSala->sala));?>" data-toggle="tab" aria-expanded="true">Do dia(<?php echo date('d/m/Y');?>)</a></li>
+                  <li class=""><a href="#tab_2_2_<?php echo strtolower($sSala->id."_".str_replace(' ', '_', $sSala->sala));?>" data-toggle="tab" aria-expanded="false">P/ Amanhã</a></li>
+                  <li class=""><a href="#tab_3_3_<?php echo strtolower($sSala->id."_".str_replace(' ', '_', $sSala->sala));?>" data-toggle="tab" aria-expanded="false">Mês <?php echo date('m');?></a></li>
+                  <li class="pull-left header"><?php echo $sSala->sala ;?></li>
                 </ul>
                 <div class="tab-content">
-                  <div class="tab-pane active" id="tab_1-1_<?php echo $sSala->id.$sSala->sala;?>">
+                  <div class="tab-pane active" id="tab_1_1_<?php echo strtolower($sSala->id."_".str_replace(' ', '_', $sSala->sala));?>">
 
                       <table class="table table-bordered">
                         <tbody><tr>
+                          <th>ID</th>
                           <th>Horário</th>
                           <th>Motivo da Alocação</th>
-                          <th>Status</th>
-
                           <th style="width: 75px"></th>
                         </tr>
 
-                        <?php foreach ($rsSalas as $sSala): ?>
+                        <?php foreach ($rsReservasHoje as $sReservaHoje): ?>
 
-                        <tr>
-                          <td><?php echo $sSala->sala;?></td>
-                          <td><?php echo $sSala->detalhes;?></td>
-                          <td>Agendado</td>
-                          <td>
-                            <a href="<?php echo site_url('sala/deletar/'.$sSala->id); ?>">
-                                <span class="badge bg-red">
-                                    <i class="fa fa-edit"></i>
-                                </span>
-                            </a>
+                            <?php if($sReservaHoje->id_sala == $sSala->id): ?>
 
-                          </td>
-                        </tr>
+                            <tr>
+                              <td>#<?php echo $sReservaHoje->id_reserva;?></td>
+                              <td><?php echo $sReservaHoje->hora;?></td>
+                              <td><?php echo $sReservaHoje->assunto;?></td>
+                              <td>
+
+                                <?php if($this->session->userdata('logado') && $this->session->userdata('id') == $sReservaHoje->id_usuario): ?>
+
+                                <a href="<?php echo site_url('reserva/cancelar/'.$sReservaHoje->id_reserva); ?>">
+                                    <span class="badge bg-red">
+                                        <i class="fa fa-edit"></i>
+                                    </span>
+                                </a>
+
+                                <?php endif; ?>
+
+                              </td>
+                            </tr>
+
+                            <?php endif;?>
 
                         <?php endforeach;?>
 
@@ -143,25 +151,86 @@
                      </table>
 
                   </div>
-                  <!-- /.tab-pane -->
-                  <div class="tab-pane" id="tab_2-2_<?php echo $sSala->id.$sSala->sala;?>">
-                    The European languages are members of the same family. Their separate existence is a myth.
-                    For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
-                    in their grammar, their pronunciation and their most common words. Everyone realizes why a
-                    new common language would be desirable: one could refuse to pay expensive translators. To
-                    achieve this, it would be necessary to have uniform grammar, pronunciation and more common
-                    words. If several languages coalesce, the grammar of the resulting language is more simple
-                    and regular than that of the individual languages.
+
+                  <div class="tab-pane" id="tab_2_2_<?php echo strtolower($sSala->id."_".str_replace(' ', '_', $sSala->sala));?>">
+                      <table class="table table-bordered">
+                        <tbody><tr>
+                          <th>ID</th>
+                          <th>Horário</th>
+                          <th>Motivo da Alocação</th>
+                          <th style="width: 75px"></th>
+                        </tr>
+
+                        <?php foreach ($rsReservasAmanha as $sReservaAmanha): ?>
+
+                            <?php if($sReservaAmanha->id_sala == $sSala->id): ?>
+
+                            <tr>
+                              <td>#<?php echo $sReservaAmanha->id_reserva;?></td>
+                              <td><?php echo $sReservaAmanha->hora;?></td>
+                              <td><?php echo $sReservaAmanha->assunto;?></td>
+                              <td>
+                                  <?php if($this->session->userdata('logado') && $this->session->userdata('id') == $sReservaAmanha->id_usuario): ?>
+
+                                  <a href="<?php echo site_url('reserva/cancelar/'.$sReservaAmanha->id_reserva); ?>">
+                                      <span class="badge bg-red">
+                                          <i class="fa fa-edit"></i>
+                                      </span>
+                                  </a>
+
+                                  <?php endif; ?>
+                              </td>
+                            </tr>
+
+                            <?php endif;?>
+
+                        <?php endforeach;?>
+
+                      </tbody>
+                     </table>
                   </div>
-                  <!-- /.tab-pane -->
-                  <div class="tab-pane" id="tab_3-2_<?php echo $sSala->id.$sSala->sala;?>">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                    It has survived not only five centuries, but also the leap into electronic typesetting,
-                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                    sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum.
+
+                  <div class="tab-pane" id="tab_3_3_<?php echo strtolower($sSala->id."_".str_replace(' ', '_', $sSala->sala));?>">
+
+                      <table class="table table-bordered">
+                        <tbody><tr>
+                          <th>ID</th>
+                          <th>Data</th>
+                          <th>Horário</th>
+                          <th>Motivo da Alocação</th>
+                          <th style="width: 75px"></th>
+                        </tr>
+
+                        <?php foreach ($rsReservasMes as $sReservaMes): ?>
+
+                            <?php if($sReservaMes->id_sala == $sSala->id): ?>
+
+                            <tr>
+                              <td>#<?php echo $sReservaMes->id_reserva;?></td>
+                              <td><?php echo $sReservaMes->data;?></td>
+                              <td><?php echo $sReservaMes->hora;?></td>
+                              <td><?php echo $sReservaMes->assunto;?></td>
+                              <td>
+                                  <?php if($this->session->userdata('logado') && $this->session->userdata('id') == $sReservaMes->id_usuario): ?>
+
+                                  <a href="<?php echo site_url('reserva/cancelar/'.$sReservaMes->id_reserva); ?>">
+                                      <span class="badge bg-red">
+                                          <i class="fa fa-edit"></i>
+                                      </span>
+                                  </a>
+
+                                  <?php endif; ?>
+                                  
+                              </td>
+                            </tr>
+
+                            <?php endif;?>
+
+                        <?php endforeach;?>
+
+                      </tbody>
+                     </table>
+
                   </div>
 
                 </div>
@@ -171,7 +240,6 @@
             </div>
 
             <?php endforeach;?>
-
 
         </div>
 
