@@ -11,7 +11,8 @@ class Reserva extends CI_Controller {
 
     public function index(){
 
-        $aData['rsSalas'] = $this->sala_model->getSala();
+        $aData['rsSalas']    = $this->sala_model->getSala();
+        $aData['rsReservas'] = $this->sala_model->getReserva(1);
 
 		$this->load->view('template_header');
 		$this->load->view('reserva', $aData);
