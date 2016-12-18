@@ -17,10 +17,10 @@ class Sala extends CI_Controller {
 
         switch ($bRetorno) {
             case TRUE:
-                $sRetorno = 'Sala criado com sucesso!';
+                $sRetorno = 'Ação executado com sucesso!';
                 break;
             case FALSE:
-                $sRetorno = 'Não foi possível criar sala!';
+                $sRetorno = 'Não foi possível executar está ação';
                 break;
         }
 
@@ -33,28 +33,64 @@ class Sala extends CI_Controller {
     }
 
     public function acao(){
-        // 1 - Criar / 2 - Atualiza / 3 - Deletar
 
-        $aData['rsContasSubstituta'] = $this->financeiro_model->getContas(7);
+        switch ($this->input->post('iacao')) {
+            // Nova Sala
+            case 1:
+                $this->form_validation->set_rules('sala', 'sala', 'required');
+                break;
+            // Atualizar Sala
+            case 2:
+                $this->form_validation->set_rules('iacao', 'ID Ação', 'required|integer');
+                $this->form_validation->set_rules('idado', 'ID Dado', 'required|integer');
+                $this->form_validation->set_rules('sala', 'sala', 'required');
+                break;
+        }
 
-        $this->form_validation->set_rules('sala', 'sala', 'required');
+        $aData['rsSalas'] = $this->sala_model->getSala();
+        $aData['aSalas']  = $this->sala_model->getSala($this->uri->segment(3));
+
 
         if ($this->form_validation->run() === FALSE){
 
             $this->load->view('template_header');
-    		$this->load->view('sala');
+    		$this->load->view('sala', $aData);
     		$this->load->view('template_footer');
 
         }else{
 
-            if($this->sala_model->setSala()){
-                $this->index(TRUE);
-            }else{
-                $this->index(FALSE);
+            switch ($this->input->post('iacao')) {
+                // Nova Sala
+                case 1:
+
+                    if($this->sala_model->setSala()){
+                        $this->index(TRUE);
+                    }else{
+                        $this->index(FALSE);
+                    }
+
+                    break;
+
+                // Atualizar Sala
+                case 2:
+                    $this->sala_model->setSalaAtualizar();
+                    $this->index(TRUE);
+                    break;
             }
 
         }
 
     }
+
+    public function deletar(){
+
+        if($this->sala_model->setSalaDeletar($this->uri->segment(3))){
+            $this->index(TRUE);
+        }else{
+            $this->index(FALSE);
+        }
+
+    }
+
 
 }
